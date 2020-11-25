@@ -13,8 +13,8 @@
         android:title="5"/>
     <item android:id="@+id/tripSixteenths"
         android:title="6"/>
-    <!--<item android:id="@+id/septSixteenths"
+    <item android:id="@+id/septSixteenths"
         android:title="7"/>
     <item android:id="@+id/thirtySeconds"
-        android:title="8"/>-->
+        android:title="8"/>
 </menu>
