@@ -16,7 +16,7 @@ public class Metronome {
     protected int bpm = 60;
     protected int subDiv = 1;
     private int currentBeat = 1;
-    private int beatsInMeasure = 2;
+    private int beatsInMeasure = 4;
     private int bottomSig = 4;
     private int beatType = 4;
     private int currentSubDiv;
@@ -35,17 +35,17 @@ public class Metronome {
     Context context;
     private long length;
 
-    private int poly1Start = 1;
-    private int poly1Div = 3;
+    private int poly1Start = 6;
+    private int poly1Div = 1;//3;
 
-    private int poly2Start = 1;
-    private int poly2Div = 5;
+    private int poly2Start = 4;
+    private int poly2Div = 1;//5;
 
-    private int poly3Start = 1;
-    private int poly3Div = 7;
+    private int poly3Start = 2;
+    private int poly3Div = 1;//7;
 
-    private int poly4Start = 1;
-    private int poly4Div = 11;
+    private int poly4Start = 0;
+    private int poly4Div = 1;//11;
 
 
     private SoundPool soundPool;
@@ -74,9 +74,7 @@ public class Metronome {
         } else {
             this.soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         }
-        //this.soundPool = soundPool;
-        //this.sound1 = sound1;
-        //this.sound2 = sound2;
+
         this.sound2 = soundPool.load(context, R.raw.subdiv,1);
         this.sound1 = soundPool.load(context, R.raw.mainpulse,1);
         this.sound3 = soundPool.load(context, R.raw.polyone,1);
@@ -85,52 +83,6 @@ public class Metronome {
         this.sound6 = soundPool.load(context, R.raw.polyfour,1);
     }
 
-    Metronome(int bpm, int subDiv, int beatsInMeasure) {
-        this.bpm = bpm;
-        this.subDiv = subDiv;
-        this.beatsInMeasure = beatsInMeasure;
-        timer = new Timer();
-    }
-
-    Metronome (SoundPool soundPool, int sound1, int sound2) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build();
-
-            this.soundPool = new SoundPool.Builder()
-                    .setMaxStreams(10)
-                    .setAudioAttributes(audioAttributes)
-                    .build();
-        } else {
-            this.soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-        }
-        //this.soundPool = soundPool;
-        //this.sound1 = sound1;
-        //this.sound2 = sound2;
-        this.sound1 = soundPool.load(context, R.raw.pulse,1);
-    }
-
-    protected void soundBuild() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build();
-
-            this.soundPool = new SoundPool.Builder()
-                    .setMaxStreams(10)
-                    .setAudioAttributes(audioAttributes)
-                    .build();
-        } else {
-            this.soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-        }
-        //this.soundPool = soundPool;
-        //this.sound1 = sound1;
-        //this.sound2 = sound2;
-        this.sound1 = soundPool.load(context, R.raw.pulse,1);
-    }
 
     protected int getBpm () {
         return this.bpm;
@@ -227,36 +179,11 @@ public class Metronome {
         }
     }
 
-    /*private void advanceClick () {
-        if (playing) {
-            //System.out.println(currentBeat);
-            Log.d("BEAT", String.valueOf(currentBeat));
-            if (currentBeat == beatsInMeasure) {
-                currentBeat = 1;
-            } else {
-                ++currentBeat;
-            }
-        }
-    }*/
 
-    private void advanceClick () {
-        //System.out.println(currentBeat);
-        soundPool.play(sound1, 1, 1, 0,0,1);
-        Log.d("BEAT", String.valueOf(currentBeat));
-        if (currentBeat == beatsInMeasure) {
-            currentBeat = 1;
-        } else {
-            ++currentBeat;
-        }
-        /*if (subDiv > 1) {
-            timer2.schedule(task2, length/2);
-        }*/
-    }
 
     private void advanceSub () {
         //Log.d("Beat", String.valueOf(subDivBeats));
         //Log.d("Beat", String.valueOf(currentSubDiv));
-        //soundPool.play(sound1, 1, 1, 0, 0, 1);
         if (currentSubDiv == subDivBeats) {
             currentBeat = 1;
             setCurrentSubDiv(0);
@@ -274,41 +201,21 @@ public class Metronome {
 
     }
 
-    private void advancePoly (int sound) {
-        soundPool.play(sound, 1, 1, 0, 0, 1);
-        //Log.d("Beat", String.valueOf(subDivBeats));
-        //Log.d("Beat", String.valueOf(currentSubDiv));
-        //soundPool.play(sound1, 1, 1, 0, 0, 1);
-        /*if (currentSubDiv == subDivBeats) {
-            currentBeat = 1;
-            setCurrentSubDiv(0);
-        }
 
-        if (getCurrentSubDiv() % getSubDiv() != 0) {
-            Log.d("BEAT", String.valueOf("&"));
-            soundPool.play(sound2, 1, 1, 0, 0, 1);
-        } else {
-            Log.d("BEAT", String.valueOf(currentBeat));
-            soundPool.play(sound1, 1, 1, 0, 0, 1);
-            ++currentBeat;
-        }
-        incrCurrentSubDiv(getCurrentSubDiv());*/
-
-    }
 
     protected void startClick () {
         setPlaying(true);
-        //soundBuild();
+
         currentBeat = 1;
         setCurrentSubDiv(0);
         setSubDivBeats(getBeatsInMeasure(),getSubDiv());
         long pulse = (Math.round(60000/(float)bpm));
         long length = (Math.round(60000/(float)bpm))/subDiv;
         this.length = length;
-        Log.d("LENGTH", String.valueOf(length));
-        //task = new TimerTask() { public void run() { advanceClick(); } };
+        //Log.d("LENGTH", String.valueOf(length));
+
         task = new TimerTask() { public void run() { advanceSub(); } };
-        //task2 = new TimerTask() { public void run() { advanceSub(); } };
+
         if(poly1Div > 1){
             task2 = new TimerTask() { public void run() { soundPool.play(sound3, 1, 1, 0, 0, 1);; } };
         }
@@ -325,7 +232,7 @@ public class Metronome {
             task5 = new TimerTask() { public void run() { soundPool.play(sound6, 1, 1, 0, 0, 1); } };
         }
 
-        timer.scheduleAtFixedRate(task, 1, this.length);
+        timer.scheduleAtFixedRate(task, 8, this.length);
         //timer2.scheduleAtFixedRate(task2, poly1Start, 4*length/5);
 
         if(poly1Div > 1){
@@ -346,19 +253,6 @@ public class Metronome {
 
     }
 
-    /*if (subDiv != 1) {
-            subTask = new TimerTask() {
-                @Override
-                public void run() {
-                    Log.d("BEAT", "&");
-                }
-            };
-            for ( int count = 0; count < subDiv; ++count ) {
-                if ( count != 1) {
-                    timer.schedule(subTask,length/subDiv);
-                }
-            }
-        }*/
 
 
     protected void stopClick () {

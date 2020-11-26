@@ -49,15 +49,58 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="84dp"
+            android:layout_height="28dp"
             android:background="#CCCCCC"
-            android:orientation="horizontal"></LinearLayout>
+            android:orientation="horizontal">
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:background="#CCCCCC"
-            android:orientation="horizontal"></LinearLayout>
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#CCCCCC"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPoly1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="showSetPoly1"
+                android:text="none" />
+
+            <Button
+                android:id="@+id/btnPoly2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="showSetPoly2"
+                android:text="none" />
+
+            <Button
+                android:id="@+id/btnPoly3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="showSetPoly3"
+                android:text="none" />
+
+            <Button
+                android:id="@+id/btnPoly4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="showSetPoly4"
+                android:layout_weight="1"
+                android:text="none" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,8 +113,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="4\n4" />
-                //android:onClick="showSetSignature"/>
+                android:text="4\n4"
+                android:onClick="showSetSignature"/>
 
             <Button
                 android:id="@+id/btnSubDiv"
