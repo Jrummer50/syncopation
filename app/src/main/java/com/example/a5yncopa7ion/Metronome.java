@@ -21,7 +21,7 @@ public class Metronome {
     private int beatType = 4;
     private int currentSubDiv;
     private int subDivBeats;
-    protected volatile boolean playing = false;
+    protected boolean playing = false;
     Timer timer;
     TimerTask task = null;
     Timer timer2;
@@ -50,7 +50,7 @@ public class Metronome {
 
     private SoundPool soundPool;
 
-    private volatile int sound1, sound2, sound3, sound4, sound5, sound6;
+    private int sound1, sound2, sound3, sound4, sound5, sound6;
 
 
     Metronome(Context context) {
@@ -252,9 +252,7 @@ public class Metronome {
         }
 
     }
-
-
-
+    
     protected void stopClick () {
         task.cancel();
         if(task2 != null) {
@@ -276,10 +274,5 @@ public class Metronome {
         task5 = null;
         setPlaying(false);
     }
-
-
-
-
-
 
 }
